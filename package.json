@@ -2,15 +2,25 @@
   "name": "UserActionTrackerSandbox",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "test": "wdio run wdio.conf.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "ejs": "^3.1.6",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "wdio": "^6.0.1"
+  },
+  "devDependencies": {
+    "@wdio/cli": "^7.16.10",
+    "@wdio/devtools-service": "^7.16.10",
+    "@wdio/local-runner": "^7.16.10",
+    "@wdio/mocha-framework": "^7.16.6",
+    "@wdio/spec-reporter": "^7.16.9",
+    "chromedriver": "^96.0.0",
+    "wdio-chromedriver-service": "^7.2.2"
   }
 }
