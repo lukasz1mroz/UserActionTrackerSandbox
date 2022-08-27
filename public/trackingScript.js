@@ -7,3 +7,30 @@ const getAccessData = async () => {
 
   return { eventDate, userIp, localStorageRecord };
 };
+
+const trackUserAccessWithWeeks = async () => {
+  window.addEventListener('load', async () => {
+    try {
+      const { eventDate, userIp, localStorageRecord } = await getAccessData();
+      const oneWeekTimeInMs = 6.048e8;
+      const updatedCount = localStorageRecord !== null ? (localStorageRecord.count += 1) : 1;
+      const lastVisitTimestamp = new Date(localStorageRecord.lastVisitDate).getTime();
+      const isFirstWeeklyVisit =
+        !lastVisitTimestamp || new Date(eventDate).getTime() - lastVisitTimestamp > oneWeekTimeInMs ? true : false;
+
+      localStorage.setItem(
+        userIp,
+        JSON.stringify({
+          url: window.location.href,
+          count: updatedCount,
+          lastVisitDate: eventDate,
+          isFirstWeeklyVisit: isFirstWeeklyVisit,
+        })
+      );
+    } catch (error) {
+      throw new Error(error);
+    }
+  });
+};
+
+trackUserAccessWithWeeks();
