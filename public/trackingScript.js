@@ -1,7 +1,6 @@
 const getAccessData = async () => {
   const ipApiResponse = await fetch('https://ipapi.co/json/');
   const userIp = (await ipApiResponse.json()).ip.toString();
-  // Using localStorage for demo purpose. Data should be stored on server side persistance layer and accessed via API with CRUD methods.
   const userStorageRecord = JSON.parse(localStorage.getItem(userIp));
 
   return { userIp, userStorageRecord };
