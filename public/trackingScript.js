@@ -56,6 +56,21 @@ const trackUserAccessWithWeeks = async () => {
       const updatedVisitsData = await prepDataToAddOrUpdateVisit(window.location.href);
 
       localStorage.setItem(updatedVisitsData.userIp, JSON.stringify(updatedVisitsData.visits));
+
+      const storageInteractionsItems = Object.keys(localStorage).map((key) => {
+        const items = JSON.parse(localStorage.getItem(key));
+        return { userIp: key, items };
+      });
+
+      const response = await fetch('/api/interactions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ storageInteractionsItems }),
+      });
+
+      return response;
     } catch (error) {
       throw new Error(error);
     }
